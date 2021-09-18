@@ -1,0 +1,15 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name = "jsonplaceholder">
+    <!-- This parameter will be passed to every test in this suite -->
+    <parameter name="suiteBaseURI" value="https://jsonplaceholder.typicode.com/" />
+
+        <test thread-count="5" name=" Get all posts">
+          <parameter name="basepath" value="/posts"></parameter>
+                <classes>
+            <class name = "tests.Suite" />
+        </classes>
+        </test>
+
+</suite>
