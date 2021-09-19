@@ -5,8 +5,8 @@
     <classes>
       <class name="tests.ApiTest">
         <methods>
-          <include name="GetAllPost"/>
           <include name="setup"/>
+          <include name="PerformCall"/>
         </methods>
       </class> <!-- tests.ApiTest -->
     </classes>

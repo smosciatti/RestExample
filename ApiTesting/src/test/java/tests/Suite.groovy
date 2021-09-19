@@ -30,7 +30,7 @@ class Suite {
         //Assert.assertEquals(statusCode, 404)
         Assert.assertEquals(statusCode, HttpStatus.SC_OK)
         println("***********************")
-        println("GET ALL POSTS")
+        println("GET ALL " + basepath)
         println(responseBody)
     }
 }

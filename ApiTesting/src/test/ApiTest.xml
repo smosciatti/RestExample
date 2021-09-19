@@ -9,7 +9,19 @@
           <parameter name="basepath" value="/posts"></parameter>
                 <classes>
             <class name = "tests.Suite" />
-        </classes>
+                </classes>
         </test>
+    <test thread-count="5" name=" Get all Users">
+        <parameter name="basepath" value="/users"></parameter>
+        <classes>
+            <class name = "tests.Suite" />
+        </classes>
+    </test>
+    <test thread-count="5" name=" Get all To do">
+        <parameter name="basepath" value="/todos"></parameter>
+        <classes>
+            <class name = "tests.Suite" />
+        </classes>
+    </test>
 
 </suite>
