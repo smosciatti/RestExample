@@ -1,216 +1,192 @@
 package tests
 
-import groovy.json.JsonSlurper
-import io.restassured.builder.RequestSpecBuilder
-import io.restassured.mapper.ObjectMapper
-import io.restassured.mapper.ObjectMapperType
-import io.restassured.specification.RequestSpecification
 import org.testng.Assert
-import org.testng.annotations.BeforeClass
-import org.testng.annotations.Parameters
+import spock.lang.Shared
 import spock.lang.Specification
 import static io.restassured.RestAssured.*
-import io.restassured.RestAssured
-import org.testng.annotations.Test
 import org.apache.http.HttpStatus
-import io.restassured.http.ContentType;
-import io.restassured.response.Response;
+import io.restassured.http.ContentType
+import io.restassured.response.Response
 
 
-class ApiTest {
-    //int userNo = 0
-    //int postNo = 0
+
+class ApiTest extends Specification{
     String responseBody = ""
-    // RestAssured.baseURI = baseURI
+    int statusCode = 0
 
-    @BeforeClass
-    void setup() {
-        // Setting BaseURI once
-        RestAssured.baseURI = "https://jsonplaceholder.typicode.com/"
+   // @Shared baseURI = "https://jsonplaceholder.typicode.com/"
 
+    def setupSpec() {
+        baseURI = "https://jsonplaceholder.typicode.com/"
     }
 
-/*
-    @Parameters(["basepath"])
-    @Test
-    void PerformCall(String basepath) {
-        // Setting BasePath
-        RestAssured.basePath = basepath
-        Response response = RestAssured.get()
+    def "get  all posts"() {
+        given:
+        basePath = "/posts"
+        Response response = get()
         responseBody = response.asString()
         println(response.getStatusCode())
-        int statusCode = response.statusCode()
-        //Assert.assertEquals(statusCode, 404)
-        Assert.assertEquals(statusCode, HttpStatus.SC_OK)
+        statusCode = response.statusCode()
         println("***********************")
         println("GET ALL POSTS")
         println(responseBody)
-    }
-*/
-
-    @Test
-    void GetAllPosts() {
-        // Setting BasePath
-        RestAssured.basePath = "/posts"
-        Response response = RestAssured.get()
-        responseBody = response.asString()
-        println(response.getStatusCode())
-        int statusCode = response.statusCode()
-        //Assert.assertEquals(statusCode, 404)
-        Assert.assertEquals(statusCode, HttpStatus.SC_OK)
-        println("***********************")
-        println("GET ALL POSTS")
-        println(responseBody)
+        expect:
+        statusCode == HttpStatus.SC_OK
     }
 
-    @Test
-    void GetAllUsers() {
-        // Setting BasePath
-        RestAssured.basePath = "/users"
-        Response response = RestAssured.get()
+    def "get all users"() {
+        given:
+        //baseURI = "https://jsonplaceholder.typicode.com/"
+        basePath = "/users"
+        Response response = get()
         responseBody = response.asString()
         println(response.getStatusCode())
-        int statusCode = response.statusCode()
-       // Assert.assertEquals(statusCode, 404)
-        Assert.assertEquals(statusCode, HttpStatus.SC_OK)
+        statusCode = response.statusCode()
         println("***********************")
         println("GET ALL USERS")
         println(responseBody)
+        expect:
+        statusCode == HttpStatus.SC_OK
     }
 
-    @Test
-    void GetAllTodos() {
-        // Setting BasePath
-        RestAssured.basePath = "/todos"
-        Response response = RestAssured.get()
+
+    def "get all todos"() {
+        given:
+        basePath = "/todos"
+        Response response = get()
         responseBody = response.asString()
         println(response.getStatusCode())
-        int statusCode = response.statusCode()
-        //Assert.assertEquals(statusCode, 404)
-        Assert.assertEquals(statusCode, HttpStatus.SC_OK)
+        statusCode = response.statusCode()
         println("***********************")
         println("GET ALL TODOS")
         println(responseBody)
+        expect:
+        statusCode == HttpStatus.SC_OK
 
     }
 
 
-    @Test
-    void GetAllAlbums() {
-        // Setting BasePath
-        RestAssured.basePath = "/albums"
-        Response response = RestAssured.get()
+    def "get all albums"() {
+        given:
+        //baseURI = "https://jsonplaceholder.typicode.com/"
+        basePath = "/albums"
+        Response response = get()
         responseBody = response.asString()
         println(response.getStatusCode())
-        int statusCode = response.statusCode()
+        statusCode = response.statusCode()
         //Assert.assertEquals(statusCode, 404)
         Assert.assertEquals(statusCode, HttpStatus.SC_OK)
         println("***********************")
         println("GET ALL ALBUMS")
         println(responseBody)
-
+        expect:
+        statusCode == HttpStatus.SC_OK
     }
 
-    @Test
-    void GetAllPostOfTheUser() {
-        // Setting BasePath
-        RestAssured.basePath = "users/10/posts"
-        Response response = RestAssured.get()
+    def "get all post of the user"() {
+        given:
+        //baseURI = "https://jsonplaceholder.typicode.com/"
+        basePath = "users/10/posts"
+        Response response = get()
         responseBody = response.asString()
         println(response.getStatusCode())
-        int statusCode = response.statusCode()
-        //Assert.assertEquals(statusCode, 404)
-        Assert.assertEquals(statusCode, HttpStatus.SC_OK)
+        statusCode = response.statusCode()
         println("***********************")
         println("GET ALL Posts of the user")
         println(responseBody)
-
+        expect:
+        statusCode == HttpStatus.SC_OK
     }
 
-    @Test
-    void GetAllTodoOfTheUser() {
-        // Setting BasePath
-        RestAssured.basePath = "users/10/todos"
-        Response response = RestAssured.get()
+
+    def "get all todo  of the user"() {
+        given:
+        //baseURI = "https://jsonplaceholder.typicode.com/"
+        basePath = "users/10/todos"
+        Response response = get()
         responseBody = response.asString()
         println(response.getStatusCode())
-        int statusCode = response.statusCode()
+        statusCode = response.statusCode()
         //Assert.assertEquals(statusCode, 404)
-        Assert.assertEquals(statusCode, HttpStatus.SC_OK)
+        //Assert.assertEquals(statusCode, HttpStatus.SC_OK)
         println("***********************")
         println("GET ALL Todos of the user")
         println(responseBody)
-
+        expect:
+        statusCode == HttpStatus.SC_OK
     }
 
 
-    @Test
-    void GetAllAlbumOfTheUser() {
-        // Setting BasePath
-        RestAssured.basePath = "users/10/albums"
-        Response response = RestAssured.get()
+    def "get all album of the user"() {
+       given:
+        //baseURI = "https://jsonplaceholder.typicode.com/"
+        basePath = "users/10/albums"
+        Response response = get()
         responseBody = response.asString()
         println(response.getStatusCode())
-        int statusCode = response.statusCode()
-        //Assert.assertEquals(statusCode, 404)
-        Assert.assertEquals(statusCode, HttpStatus.SC_OK)
+        statusCode = response.statusCode()
         println("***********************")
         println("GET ALL Albums of the user")
         println(responseBody)
-
+        expect:
+        statusCode == HttpStatus.SC_OK
     }
 
 
-    @Test
-    void DeleteTheUser() {
-        // Setting BasePath
-        RestAssured.basePath = "users/10"
-        Response response = RestAssured.delete()
-        int statusCode = response.statusCode()
+    def "delete the user"() {
+        given:
+        //baseURI = "https://jsonplaceholder.typicode.com/"
+        basePath = "users/10"
+        Response response = delete()
+        statusCode = response.statusCode()
         //Assert.assertEquals(statusCode, 404)
-        Assert.assertEquals(statusCode, HttpStatus.SC_OK)
+        //Assert.assertEquals(statusCode, HttpStatus.SC_OK)
         println("***********************")
         println("Delete the user " + statusCode)
         println("***********************")
+        expect:
+        statusCode == HttpStatus.SC_OK
     }
-    @Test
-    void DeleteThePost() {
-        // Setting BasePath
-        RestAssured.basePath = "posts/88"
-        Response response = RestAssured.delete()
-        int statusCode = response.statusCode()
-        //Assert.assertEquals(statusCode, 404)
-        Assert.assertEquals(statusCode, HttpStatus.SC_OK)
+
+    def "delete the post"() {
+        given:
+        //baseURI = "https://jsonplaceholder.typicode.com/"
+        basePath = "posts/88"
+        Response response = delete()
+        statusCode = response.statusCode()
         println("***********************")
         println("Delete the Post " + statusCode)
         println("***********************")
+        expect:
+        statusCode == HttpStatus.SC_OK
     }
 
-    @Test
-    void PostNewPostForTheUser() {
-
-         String payload =   ''' 
+    def "post new post for the user"() {
+        given:
+        //baseURI = "https://jsonplaceholder.typicode.com/"
+        String payload =   ''' 
                        {
                         "userId": 4,
                         "title": "foo title",
                         "body": "foo body"
                        }
                         '''
-        // Setting BasePath
         basePath = "users/4/posts"
         Response response = given().contentType (ContentType.JSON).body(payload).post()
         responseBody = response.asString()
         println(response.getStatusCode())
-        int statusCode = response.statusCode()
+        statusCode = response.statusCode()
         Assert.assertEquals(statusCode,HttpStatus.SC_CREATED)
         println("***********************")
         println("Post New Post For The User")
         println(responseBody)
+        expect:
+        statusCode == HttpStatus.SC_CREATED
     }
 
-    @Test
-    void PostNewTODoForTheUser() {
-
+    def "post new Todo for the user"() {
+        given:
+        //baseURI = "https://jsonplaceholder.typicode.com/"
         String payload =   ''' 
                        {
                         "userId": 4,
@@ -218,21 +194,22 @@ class ApiTest {
                         "completed": true
                        }
                         '''
-        // Setting BasePath
         basePath = "users/4/todos"
         Response response = given().contentType (ContentType.JSON).body(payload).post()
         responseBody = response.asString()
         println(response.getStatusCode())
-        int statusCode = response.statusCode()
-        Assert.assertEquals(statusCode,HttpStatus.SC_CREATED)
+        statusCode = response.statusCode()
         println("***********************")
         println("Post New ToDo For The User")
         println(responseBody)
+        expect:
+        statusCode == HttpStatus.SC_CREATED
     }
 
 
-    @Test
-    void PostNewAlbumForTheUser() {
+    def "post new album for the user"() {
+        given:
+        //baseURI = "https://jsonplaceholder.typicode.com/"
 
         String payload =   ''' 
                        {
@@ -240,21 +217,22 @@ class ApiTest {
                         "title": "foo title"
                         }
                         '''
-        // Setting BasePath
         basePath = "users/4/albums"
         Response response = given().contentType (ContentType.JSON).body(payload).post()
         responseBody = response.asString()
         println(response.getStatusCode())
-        int statusCode = response.statusCode()
-        Assert.assertEquals(statusCode,HttpStatus.SC_CREATED)
+        statusCode = response.statusCode()
         println("***********************")
         println("Post New Album For The User")
         println(responseBody)
-
+        expect:
+        statusCode == HttpStatus.SC_CREATED
     }
 
-     @Test
-    void PostNewPost() {
+
+    def"post new post"() {
+        given:
+        //baseURI = "https://jsonplaceholder.typicode.com/"
 
         String payload =   ''' 
                        {
@@ -262,20 +240,22 @@ class ApiTest {
                         "body": "foo body"
                         }
                         '''
-        // Setting BasePath
         basePath = "/posts"
         Response response = given().contentType (ContentType.JSON).body(payload).post()
         responseBody = response.asString()
         println(response.getStatusCode())
-        int statusCode = response.statusCode()
-        Assert.assertEquals(statusCode,HttpStatus.SC_CREATED)
+        statusCode = response.statusCode()
         println("***********************")
         println("Post New Post")
         println(responseBody)
+        expect:
+        statusCode == HttpStatus.SC_CREATED
     }
 
-    @Test
-    void PutThePost() {
+
+    def"put the post"() {
+        given:
+        //baseURI = "https://jsonplaceholder.typicode.com/"
 
         String payload =   ''' 
                        {
@@ -283,52 +263,39 @@ class ApiTest {
                         "body": "foo body"
                         }
                         '''
-        // Setting BasePath
         basePath = "/posts/44"
         Response response = given().contentType (ContentType.JSON).body(payload).put()
         responseBody = response.asString()
         println(response.getStatusCode())
-        int statusCode = response.statusCode()
-        Assert.assertEquals(statusCode,HttpStatus.SC_OK)
+        statusCode = response.statusCode()
         println("***********************")
         println("Put The Post")
         println(responseBody)
+        expect:
+        statusCode == HttpStatus.SC_OK
     }
 
-    @Test
-    void PatchThePost() {
+    def "patch the post"() {
+        given:
+        //baseURI = "https://jsonplaceholder.typicode.com/"
 
         String payload =   ''' 
                        {
                         "title": "foo"
                         }
                         '''
-        // Setting BasePath
         basePath = "/posts/44"
         Response response = given().contentType (ContentType.JSON).body(payload).patch()
         responseBody = response.asString()
         println(response.getStatusCode())
-        int statusCode = response.statusCode()
-        Assert.assertEquals(statusCode,HttpStatus.SC_OK)
+        statusCode = response.statusCode()
+        //Assert.assertEquals(statusCode,HttpStatus.SC_OK)
         println("***********************")
         println("Put The Post")
         println(responseBody)
+        expect:
+        statusCode == HttpStatus.SC_OK
     }
 
 
 }
-
-
-
-/* Spock ok /Report?
-
-class ApiTest extends Specification{
-    def "test1"() {
-        given:
-        Response response = RestAssured.get("https://reqres.in/api/users?psge2")
-        println(response.getStatusCode())
-        int statusCode = response.statusCode()
-        expect:
-        statusCode == 200
-    }
-}*/
