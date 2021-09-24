@@ -21,8 +21,10 @@ class Suite {
     @Parameters(["basepath"] )
     @Test
     void PerformCall( String basepath){
+
         // Setting BasePath
         RestAssured.basePath = basepath
+        basepath?.chars()
         Response response = RestAssured.get()
         responseBody = response.asString()
         println(response.getStatusCode())
