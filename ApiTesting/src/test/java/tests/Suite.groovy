@@ -11,25 +11,24 @@ import org.testng.annotations.Test
 class Suite {
     String responseBody = ""
 
-    @Parameters(["suiteBaseURI"] )
+    @Parameters(["suiteBaseURI"])
     @BeforeClass
     void setup(String suiteBaseURI) {
         // Setting BaseURI once
-        RestAssured.baseURI =  suiteBaseURI
+        RestAssured.baseURI = suiteBaseURI
 
     }
-    @Parameters(["basepath"] )
-    @Test
-    void PerformCall( String basepath){
 
-        // Setting BasePath
+    @Parameters(["basepath"])
+    @Test
+    void PerformCall(String basepath) {
+
         RestAssured.basePath = basepath
         basepath?.chars()
         Response response = RestAssured.get()
         responseBody = response.asString()
         println(response.getStatusCode())
         int statusCode = response.statusCode()
-        //Assert.assertEquals(statusCode, 404)
         Assert.assertEquals(statusCode, HttpStatus.SC_OK)
         println("***********************")
         println("GET ALL " + basepath)
